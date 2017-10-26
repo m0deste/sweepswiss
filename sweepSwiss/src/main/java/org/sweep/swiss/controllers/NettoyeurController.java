@@ -52,12 +52,9 @@ public class NettoyeurController {
 		
 		Date date = new Date();
 		n.setDateInscription(date);
-		n.setEtat(true);
-		n.setStatut(true);
+		n.setActiver(false);
 		n.setAlterEmail(n.getAlterEmail());
 		n.setAlterPhone(n.getAlterPhone());
-		n.setEtat(true);
-		n.setStatut(false);
 		n.setRole(Roles.Nettoyeur.toString());
 		if(n.getEmail() == null) {
 			if(!CheckUniqueId.checkPhoneNumber(n.getPhone()))	{
@@ -144,7 +141,7 @@ public class NettoyeurController {
 		
 		for (Nettoyeur c : nettoyeurs) {
 			if(c.getToken()==token) {
-				c.setStatut(true);
+				c.setActiver(true);
 				nettoyeurRepository.save(c);
 				nettoyeur = c;
 				break;

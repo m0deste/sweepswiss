@@ -2,6 +2,7 @@ package org.sweep.swiss.entites;
 
 import java.util.Collection;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -9,7 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Client extends Compte{
+@DiscriminatorValue("CLIENT")
+public class Client extends User{
 
 	/**
 	 * 
@@ -33,6 +35,13 @@ public class Client extends Compte{
 	@OneToMany(mappedBy="client", fetch=FetchType.LAZY)
 	private Collection<Avis> lesAvis;
 	
+	public Client(String email, String password, boolean activer, String role) {
+		super(email, password, activer, role);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -2,6 +2,7 @@ package org.sweep.swiss.entites;
 
 import java.util.Collection;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -11,7 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Nettoyeur extends Compte{
+@DiscriminatorValue("NETTOYEUR")
+public class Nettoyeur extends User{
 
 	
 	/**
@@ -39,6 +41,12 @@ public class Nettoyeur extends Compte{
 	}
 
 	
+	public Nettoyeur(String email, String password, boolean activer, String role) {
+		super(email, password, activer, role);
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Collection<Service> getServices() {
 		return services;
 	}

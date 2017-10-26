@@ -4,14 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-import javax.persistence.MappedSuperclass;
-
-@MappedSuperclass
-public class Compte implements Serializable{
+//@MappedSuperclass
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="TYPE_USER", discriminatorType=DiscriminatorType.STRING, length=10)
+public class User implements Serializable{
 
 	/**
 	 * 
@@ -22,12 +28,12 @@ public class Compte implements Serializable{
 	private Long id;
 	private String nom;
 	private String prenom;
-	@Column(unique=true, nullable=false)
+	//@Column(unique=true, nullable=false)
 	private String email;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String phone;
 	private String alterEmail;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String token;
 	private String password;
 	private Date dateInscription;
@@ -37,19 +43,36 @@ public class Compte implements Serializable{
 	private Boolean permisSejour;
 	private String nationalite;
 	private Date dateNaissance;
-	private boolean etat; //Pour activation ou désactivation
-	private boolean statut; //Compte confirmé ou non
+	private boolean activer; //Pour activation ou désactivation
 	private String AlterPhone;
 	@Column(unique=true)
 	private String photo;
 	private String role;
 	
 
-	public Compte() {
+	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}		
 	
+	
+	public User(String email, String password, boolean activer, String role) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.activer = activer;
+		this.role = role;
+	}
+
+
+	public boolean isActiver() {
+		return activer;
+	}
+
+	public void setActiver(boolean activer) {
+		this.activer = activer;
+	}
+
 	public String getRole() {
 		return role;
 	}
@@ -75,21 +98,7 @@ public class Compte implements Serializable{
 		AlterPhone = alterPhone;
 	}
 
-	public boolean isEtat() {
-		return etat;
-	}
-
-	public void setEtat(boolean etat) {
-		this.etat = etat;
-	}
-
-	public boolean isStatut() {
-		return statut;
-	}
-
-	public void setStatut(boolean statut) {
-		this.statut = statut;
-	}
+	
 
 	public String getAlterEmail() {
 		return alterEmail;

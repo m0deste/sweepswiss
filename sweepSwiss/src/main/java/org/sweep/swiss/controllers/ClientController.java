@@ -54,12 +54,9 @@ public class ClientController {
 		
 			Date date = new Date();
 			c.setDateInscription(date);
-			c.setEtat(true);
-			c.setStatut(true);
 			c.setAlterEmail(c.getAlterEmail());
 			c.setAlterPhone(c.getAlterPhone());
-			c.setEtat(true);
-			c.setStatut(false);
+			c.setActiver(false);
 			c.setRole(Roles.Client.toString());
 			if(c.getEmail() == null) {
 				if(!CheckUniqueId.checkPhoneNumber(c.getPhone()))	{
@@ -148,7 +145,7 @@ public class ClientController {
 		
 		for (Client c : clients) {
 			if(c.getToken()==token) {
-				c.setStatut(true);
+				c.setActiver(true);
 				clientRepository.save(c);
 				client = c;
 				break;

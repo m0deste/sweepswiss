@@ -28,6 +28,7 @@ import org.sweep.swiss.dao.IServiceRepository;
 import org.sweep.swiss.dao.ITypeReservationRepository;
 import org.sweep.swiss.dao.IVilleRepository;
 import org.sweep.swiss.divers.CheckUniqueId;
+//import org.sweep.swiss.divers.EnvoyerEmail;
 import org.sweep.swiss.divers.Roles;
 import org.sweep.swiss.entites.Admin;
 import org.sweep.swiss.entites.Application;
@@ -78,6 +79,7 @@ public class AdminController {
 	
 	@RequestMapping("/test")
 	public String test() {
+		//EnvoyerEmail.sendMessage("test", "moi kouadio", "m0deste@live.fr", "jdrikore@live.fr");
 		return "test";
 	}
 	
@@ -106,8 +108,7 @@ public class AdminController {
 		
 		Date date = new Date();
 		a.setDateInscription(date);
-		a.setEtat(true);
-		a.setStatut(true);
+		a.setActiver(true);
 		
 		if(a.getEmail() != null) {
 			
@@ -261,8 +262,7 @@ public class AdminController {
 
 		//sendEmail or send phone message and generated token
 		n.setDateInscription(date);
-		n.setEtat(true);
-		n.setStatut(true);
+		n.setActiver(true);
 		n.setRole(Roles.Nettoyeur.toString());
 		
 		if(n.getEmail() == null) {
@@ -344,9 +344,8 @@ public class AdminController {
 			
 			Admin admin = adminRepository.findOne(id);
 			if(admin != null) {
-				boolean statut = !admin.isEtat();
-				admin.setEtat(statut);
-				admin.setStatut(true);
+				boolean statut = !admin.isActiver();
+				admin.setActiver(statut);
 				adminRepository.saveAndFlush(admin);
 				etat = true;
 			}	
@@ -356,9 +355,8 @@ public class AdminController {
 			
 			Client client = clientRepository.findOne(id);
 			if(client != null) {
-				boolean statut = !client.isEtat();
-				client.setEtat(statut);
-				client.setStatut(true);
+				boolean statut = !client.isActiver();
+				client.setActiver(statut);
 				clientRepository.saveAndFlush(client);
 				etat = true;
 			}	
@@ -367,9 +365,8 @@ public class AdminController {
 		case "Nettoyeur":
 			Nettoyeur nettoyeur = nettoyeurRepository.findOne(id);
 			if(nettoyeur != null) {
-				boolean statut = !nettoyeur.isEtat();
-				nettoyeur.setEtat(statut);
-				nettoyeur.setStatut(true);
+				boolean statut = !nettoyeur.isActiver();
+				nettoyeur.setActiver(statut);
 				nettoyeurRepository.saveAndFlush(nettoyeur);
 				etat = true;
 			}	
